@@ -243,16 +243,16 @@ def main() -> None:
     # Parse cli arguments (get file path)
     args = parse_args(sys.argv[1:])
 
-    for max_moves in [38, 150, 200]:
+    for max_moves in [20, 150, 200]:
         try:
             solution, solved_maze = solve(args.filepath, max_moves)
         except (MazeParseError, NotSolvableError) as maze_error:
             print(str(maze_error))
-            exit()
+            sys.exit()
         else:
             if solution:
-                moves = sum(row.count("\u2588") for row in solved_maze) - 2
-                print(f"Found solution with <= {max_moves} ({moves} moves):")
+                moves = sum(row.count("\u2588") for row in solved_maze) - 1 # Exclude starting point
+                print(f"Found solution with <= {max_moves} moves ({moves} moves):")
                 print("\n".join(solved_maze))
                 break
             print(f"No solution found with <= {max_moves} moves.")
