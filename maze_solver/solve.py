@@ -5,6 +5,7 @@ The file should be in .txt format and the structure of the maze follows the foll
     * Character `#` represents a block in the maze
     * Whitespace character represents movable space
     * Character `E` represents an exit point
+    * Character `^` represents a starting point
     * The edges of the maze can only contain exit or entry points (in addition to `#`)
       and there should not be any extra characters outside of the maze
 
