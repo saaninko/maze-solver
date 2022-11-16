@@ -243,13 +243,18 @@ def main() -> None:
     args = parse_args(sys.argv[1:])
 
     for max_moves in [38, 150, 200]:
-        solution, solved_maze = solve(args.filepath, max_moves)
-        if solution:
-            moves = sum(row.count("\u2588") for row in solved_maze) - 2
-            print(f"Found solution with <= {max_moves} ({moves} moves):")
-            print("\n".join(solved_maze))
-            break
-        print(f"No solution found with <= {max_moves} moves.")
+        try:
+            solution, solved_maze = solve(args.filepath, max_moves)
+        except (MazeParseError, NotSolvableError) as maze_error:
+            print(str(maze_error))
+            exit()
+        else:
+            if solution:
+                moves = sum(row.count("\u2588") for row in solved_maze) - 2
+                print(f"Found solution with <= {max_moves} ({moves} moves):")
+                print("\n".join(solved_maze))
+                break
+            print(f"No solution found with <= {max_moves} moves.")
 
 
 if __name__ == "__main__":
